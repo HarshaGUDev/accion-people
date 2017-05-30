@@ -1,0 +1,271 @@
+<div>
+	<!-- Nav tabs -->
+	<ul class="nav nav-tabs" role="tablist">
+		<li role="presentation"><a href="#basic" aria-controls="home"
+			role="tab" data-toggle="tab">Home</a></li>
+		<li role="presentation" class="active"><a href="#office"
+			aria-controls="profile" role="tab" data-toggle="tab">Office</a></li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane" id="baisc">Home</div>
+		<div role="tabpanel" class="tab-pane active" id="office1">Office</div>
+	</div>
+
+</div>
+
+
+
+
+<div class="btn btn-primary" ng-click="doTheBack()">Back</div>
+<a class="btn btn-primary" href="/upload">Home</a>
+<br />
+<div style="float: left; margin-right: 5px;>
+
+ <button type="
+	button" class="btn btn-info col-md-6 col-md-offset-3"
+	data-toggle="collapse" data-target="#basic">
+	Basic Details of {{empFullDetailList.employee_name}}
+	</button>
+	<div id="basic" class="collapse">
+		<table class="table table-user-information">
+			<tbody>
+				<tr>
+					<td>Name:</td>
+					<td>{{empFullDetailList.employee_name}}</td>
+				</tr>
+				<tr>
+					<td>Employee ID:</td>
+					<td>{{empFullDetailList.employee_id|customNumber}}</td>
+				</tr>
+
+				<tr>
+					<td>First Name:</td>
+					<td>{{empFullDetailList.first_name}}</td>
+				</tr>
+				<tr>
+					<td>Last Name:</td>
+					<td>{{empFullDetailList.last_name}}</td>
+				</tr>
+				<tr>
+					<td>Middle Name:</td>
+					<td>{{empFullDetailList.middle_name}}</td>
+				</tr>
+				<tr>
+					<td>Salutation:</td>
+					<td>{{empFullDetailList.salutation}}</td>
+				</tr>
+
+				<tr>
+					<td>Age:</td>
+					<td>{{empFullDetailList.age}}</td>
+				</tr>
+				<tr>
+					<td>DOB:</td>
+					<td>{{empFullDetailList.date_of_birth}}</td>
+				</tr>
+				<tr>
+					<td>Gender:</td>
+					<td>{{empFullDetailList.gender}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div style="float: left; margin-right: 5px; >
+   <button type="
+	button" class="btn btn-info col-md-6 col-md-offset-3"
+	data-toggle="collapse" data-target="#office">
+	Office Details of {{empFullDetailList.employee_name}}
+	</button>
+	<div id="office" class="collapse">
+		<table class="table table-user-information">
+			<tbody>
+				<tr>
+					<td>Manager:</td>
+					<td>{{empFullDetailList.reporting_to|FilterNumber}}</td>
+				</tr>
+				<tr>
+					<td>OU Name:</td>
+					<td>{{empFullDetailList.ou_name}}</td>
+				</tr>
+
+				<tr>
+					<td>Designation:</td>
+					<td>{{empFullDetailList.designation_name}}</td>
+				</tr>
+				<tr>
+					<td>Grade:</td>
+					<td>{{empFullDetailList.grade_name}}</td>
+				</tr>
+				<tr>
+					<td>Department:</td>
+					<td>{{empFullDetailList.department_name}}</td>
+				</tr>
+				<tr>
+					<td>Position:</td>
+					<td>{{empFullDetailList.position}}</td>
+				</tr>
+
+				<tr>
+					<td>Employment Status:</td>
+					<td>{{empFullDetailList.employment_status}}</td>
+				</tr>
+				<tr>
+					<td>Employee Status:</td>
+					<td>{{empFullDetailList.employee_status}}</td>
+				</tr>
+				<tr>
+					<td>Project:</td>
+					<td>{{empFullDetailList.project}}</td>
+				</tr>
+				<tr>
+					<td>Location:</td>
+					<td>{{empFullDetailList.location}}</td>
+				</tr>
+				<tr>
+					<td>Employment Type:</td>
+					<td>{{empFullDetailList.employment_type}}</td>
+				</tr>
+				<tr>
+					<td>City:</td>
+					<td>{{empFullDetailList.city_name}}</td>
+				</tr>
+				<tr>
+					<td>Date Of Joining:</td>
+					<td>{{empFullDetailList.date_of_joining}}</td>
+				</tr>
+
+				<tr>
+					<td>Confirmation Date:</td>
+					<td>{{empFullDetailList.confirmation_date}}</td>
+				</tr>
+				<tr>
+					<td>Confirmation Due Date:</td>
+					<td>{{empFullDetailList.confirmation_due_date}}</td>
+				</tr>
+				<tr>
+					<td>Contract End Date:</td>
+					<td>{{empFullDetailList.contract_end_date}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div style="float: left; margin-right: 5px; >
+   <button type="
+	button" class="btn btn-info col-md-6 col-md-offset-3"
+	data-toggle="collapse" data-target="#contact">
+	Contact Details of {{empFullDetailList.employee_name}}
+	</button>
+	<div id="contact" class="collapse">
+		<table class="table table-user-information">
+			<tbody>
+				<tr>
+					<td>Current Address1:</td>
+					<td>{{empFullDetailList.address1}}</td>
+				</tr>
+				<tr>
+					<td>Current Address2:</td>
+					<td>{{empFullDetailList.address2}}</td>
+				</tr>
+
+				<tr>
+					<td>Current City:</td>
+					<td>{{empFullDetailList.current_city}}</td>
+				</tr>
+				<tr>
+					<td>Current State:</td>
+					<td>{{empFullDetailList.current_state}}</td>
+				</tr>
+				<tr>
+					<td>Current Country:</td>
+					<td>{{empFullDetailList.current_country}}</td>
+				</tr>
+				<tr>
+					<td>Work Mobile Number:</td>
+					<td>{{empFullDetailList.work_mobile_number}}</td>
+				</tr>
+
+				<tr>
+					<td>Permanent Pincode:</td>
+					<td>{{empFullDetailList.permanent_pincode}}</td>
+				</tr>
+				<tr>
+					<td>Work Phone:</td>
+					<td>{{empFullDetailList.work_phone}}</td>
+				</tr>
+				<tr>
+					<td>Personal Email:</td>
+					<td>{{empFullDetailList.personal_email}}</td>
+				</tr>
+				<tr>
+					<td>Permanent Address1:</td>
+					<td>{{empFullDetailList.permanent_address1}}</td>
+				</tr>
+				<tr>
+					<td>Permanent Address2:</td>
+					<td>{{empFullDetailList.permanent_address2}}</td>
+				</tr>
+
+				<tr>
+					<td>Permanent City:</td>
+					<td>{{empFullDetailList.permanent_city}}</td>
+				</tr>
+				<tr>
+					<td>Permanent State:</td>
+					<td>{{empFullDetailList.permanent_state}}</td>
+				</tr>
+				<tr>
+					<td>Permanent Country:</td>
+					<td>{{empFullDetailList.permanent_country}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div style="float: left; margin-right: 5px; >  
+ <button type="
+	button" class="btn btn-info col-md-6 col-md-offset-3"
+	data-toggle="collapse" data-target="#other">
+	Contact Details of {{empFullDetailList.employee_name}}
+	</button>
+	<div id="other" class="collapse">
+		<table class="table table-user-information">
+			<tbody>
+				<tr>
+					<td>Pan Number:</td>
+					<td>{{empFullDetailList.pan_number}}</td>
+				</tr>
+				<tr>
+					<td>Region:</td>
+					<td>{{empFullDetailList.region}}</td>
+				</tr>
+
+				<tr>
+					<td>Relieving Date:</td>
+					<td>{{empFullDetailList.relieving_date}}</td>
+				</tr>
+				<tr>
+					<td>Physically Challanged:</td>
+					<td>{{empFullDetailList.physically_challanged}}</td>
+				</tr>
+				<tr>
+					<td>Disability:</td>
+					<td>{{empFullDetailList.disability}}</td>
+				</tr>
+				<tr>
+					<td>Aadhar No:</td>
+					<td>{{empFullDetailList.aadhar_no}}</td>
+				</tr>
+
+				<tr>
+					<td>UAN Number:</td>
+					<td>{{empFullDetailList.uan_number}}</td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,157 @@
+
+
+<div class="container-fluid wrapper-content1 chart-content">
+	<div class="container block-container">
+		<div class="row ">
+
+			<h3 class="org bold">Organizational Chart</h3>
+			<div class="content1">
+				<figure class="org-chart cf">
+
+					<div class="board " ng-show="empOrgChart[0].employee_id">
+
+						<ul class="columnOne">
+							<li><span class="lvl-b"> <strong> <a
+										class="link-white"
+										ui-sref="empDetails({empId:empOrgChart[0].employee_id})">
+											{{empOrgChart[0].employee_name}}</a></strong>
+									<div class="clear"></div> <strong><a
+										class="link-white"
+										ui-sref="designation({empId:empOrgChart[0].employee_id,
+                                 designation:empOrgChart[0].designation_name,
+                                 name:empOrgChart[0].employee_name,
+                                 project:empOrgChart[0].project
+                                 })">
+											{{empOrgChart[0].designation_name}}</a></strong>
+									<div class="clear"></div>
+
+							</span></li>
+						</ul>
+					</div>
+					<ul class="departments ">
+						<li class="department ">
+							<ul class="sections manager">
+								<li class="section" ng-show="empOrgChart[0].employee_id!=null"><span> <strong>
+											<strong><a class="link-white"
+												ui-sref="empDetails({empId:id})"> {{name}}</a></strong>
+											<div class="clear"></div> <strong><a
+												class="link-white"
+												ui-sref="designation({empId:id,
+                                 designation:designation,
+                                 name:name,
+                                 project:project
+                                 })">
+													{{designation}} </a></strong>
+											<div class="clear"></div> <strong><a
+												class="link-white"
+												ui-sref="project({empId:id,
+         								project:project,
+         								name:name})">
+													{{project}}</a></strong>
+											<div class="clear"></div></span></li>
+								<li class="section" ng-show="empOrgChart[0].employee_id==null"
+									style="border-bottom: 0px"><span> <strong>
+											<strong><a class="link-white"
+												ui-sref="empDetails({empId:id})"> {{name}}</a></strong>
+											<div class="clear"></div> <strong><a
+												class="link-white"
+												ui-sref="designation({empId:id,
+                                 designation:designation,
+                                 name:name,
+                                 project:project
+                                 })">
+													{{designation}} </a></strong>
+											<div class="clear"></div> <strong><a
+												class="link-white"
+												ui-sref="project({empId:id,
+         								project:project,
+         								name:name})">
+													{{project}}</a></strong>
+											<div class="clear"></div></span></li>
+							</ul>
+
+						</li>
+						<div class="clear"></div>
+						<li class="department sub-dep"
+							ng-if="empOrgChart[1][0].empProjectList[0][1]!=1154.0">
+							<ul class="sections"
+								ng-show="empOrgChart[1][0].empProjectList[0].employee_id">
+								<li class="section sub-section project-name "><span>
+
+										<strong><a
+											ui-sref="project({empId:empOrgChart[1][0].empProjectList[0].employee_id,
+         								project:empOrgChart[1][0].empProjectList[0].project,
+         								name:empOrgChart[1][0].empProjectList[0].employee_name})">
+												{{empOrgChart[1][0].project}}</a> [{{ empOrgChart[1][0].empProjectList.length}}]</strong>
+								</span></li>
+
+								<li class="section sub-section frame-section"
+									ng-repeat="firstProject in empOrgChart[1][0].empProjectList">
+
+									<span> <strong><a
+											ui-sref="empDetails({empId:firstProject.employee_id})">
+												{{firstProject.employee_name}}</a></strong>
+										<div class="clear"></div> <strong><a
+											ui-sref="designation({empId:firstProject.employee_id,
+                                 designation:firstProject.designation_name,
+                                 name:firstProject.employee_name
+                                 })">
+												{{firstProject.designation_name}}</a></strong>
+										<div class="clear"></div> <strong><a
+											ui-sref="project({empId:firstProject.employee_id,
+         								project:firstProject.project,
+         								name:firstProject.employee_name})">
+												{{firstProject.project}}</a></strong>
+
+								</span> <span class="main-border"></span>
+								</li>
+
+							</ul>
+						</li>
+						<!--   <li class="department sub-dep1 " ng-repeat="projectDetails in empOrgChart[1]"  ng-hide="$first"> -->
+						<li
+							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12},{'clear-margin-left':$index%6==0}] "
+							ng-repeat="projectDetails in empOrgChart[1]" ng-hide="$first">
+							<ul class="sections">
+							
+								<li
+									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12}]">
+									<span>
+										<div>
+											<strong><a
+											ui-sref="project({empId:projectDetails.empProjectList[0].employee_id,
+         								project:projectDetails.empProjectList[0].project,
+         								name:projectDetails.empProjectList[0].employee_name})">
+												{{projectDetails.project}}</a> [{{projectDetails.empProjectList.length}}]</strong>
+								</span>
+								</li>
+								<li class="section sub-section1 frame-section "
+									ng-repeat=" empDetails in projectDetails.empProjectList">
+
+									<span> <strong><a
+											ui-sref="empDetails({empId:empDetails.employee_id})">
+												{{empDetails.employee_name}}</a></strong>
+										<div class="clear"></div> <strong><a
+											ui-sref="designation({empId:empDetails.employee_id,
+                                 designation:empDetails.designation_name,
+                                 name:empDetails.employee_name
+                                 })">
+												{{empDetails.designation_name}}</a></strong>
+										<div class="clear"></div> <strong><a
+											ui-sref="project({empId:empDetails.employee_id,
+         								project:empDetails.project,
+         								name:empDetails.employee_name})">
+												{{empDetails[3]}}</a></strong>
+								</span> <span class="main-border"></span>
+								</li>
+
+							</ul>
+						</li>
+
+					</ul>
+				</figure>
+			</div>
+		</div>
+	</div>
+</div>
+
