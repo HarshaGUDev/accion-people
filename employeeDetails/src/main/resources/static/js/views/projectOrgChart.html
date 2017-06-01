@@ -1,16 +1,10 @@
-
-
 <div class="container-fluid wrapper-content1 chart-content">
-
 	<div class="container block-container">
 		<div class="row " ng-if="empOrgChart.length!=2">
-
 			<h3 class="org bold">Organizational Chart For Project
 				{{project}}</h3>
 			<div class="content1">
 				<figure class="org-chart cf">
-
-
 					<ul class="departments ">
 						<li class="department ">
 							<ul class="sections manager">
@@ -19,7 +13,6 @@
 											ui-sref="empDetails({empId:empOrgChart.minDetails.employee_id})">
 												{{empOrgChart.minDetails.employee_name}}</a>
 									</strong>
-
 										<div class="clear"></div> <strong><a
 											class="link-white"
 											ui-sref="designation({empId:empOrgChart.minDetails.employee_id,
@@ -28,18 +21,14 @@
                                  project:empOrgChart.minDetails.project
                                  })">
 												{{empOrgChart.minDetails.designation_name}}</a></strong>
-
 										<div class="clear"></div> <strong><a
 											class="link-white"
 											ui-sref="project({empId:empOrgChart.minDetails.employee_id,
          								project:empOrgChart.minDetails.project,
          								name:empOrgChart.minDetails.employee_name})">
 												{{empOrgChart.minDetails.project}}</a></strong>
-
 										<div class="clear"></div></span></li>
-
 							</ul>
-
 						</li>
 						<div class="clear"></div>
 						<li class="department sub-dep">
@@ -47,9 +36,9 @@
 								<li class="section sub-section project-name "><span>
 										<strong> <a class="link-white"
 											ui-sref="empDetails({empId:empOrgChart.listOfProjectEmp[0].minDetails.employee_id})">
-												{{empOrgChart.listOfProjectEmp[0].minDetails.employee_name}}</a> 
-												[{{empOrgChart.listOfProjectEmp[0].listOfProjectEmp.length}}]</strong>
-
+												{{empOrgChart.listOfProjectEmp[0].minDetails.employee_name}}</a>
+											[{{empOrgChart.listOfProjectEmp[0].listOfProjectEmp.length}}]
+									</strong>
 								</span></li>
 								<div
 									ng-repeat=" obj in empOrgChart.listOfProjectEmp[0].listOfProjectEmp">
@@ -69,31 +58,29 @@
          								project:obj.minDetails.project,
          								name:obj.minDetails.employee_name})">
 													{{obj.minDetails.project}}</a></strong>
-
 									</span> <span class="main-border"></span></li>
 								</div>
-
 							</ul>
 						</li>
 						<!--   <li class="department sub-dep1 " ng-repeat="projectDetails in empOrgChart[1]"  ng-hide="$first"> -->
 						<li
-							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12},{'clear-margin-left':$index%6==0}] "
+							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index%6==0},{'clear-margin-left':$index%6==0}] "
 							ng-repeat="projectDetails in empOrgChart.listOfProjectEmp"
 							ng-hide="$first">
-							<ul class="sections">
-
+							<ul class="sections"
+								ng-if="projectDetails.minDetails.employee_id!=empOrgChart.minDetails.employee_id">
 								<li
-									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12}]">
+									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index%6==0}]">
 									<span>
 										<div>
 											<strong><a
 												ui-sref="empDetails({empId:projectDetails.minDetails.employee_id})">
-													{{projectDetails.minDetails.employee_name}} </a> [{{projectDetails.listOfProjectEmp.length}}] </strong>
+													{{projectDetails.minDetails.employee_name}} </a>
+												[{{projectDetails.listOfProjectEmp.length}}] </strong>
 								</span>
 								</li>
 								<li class="section sub-section1 frame-section "
 									ng-repeat=" empDetails in projectDetails.listOfProjectEmp">
-
 									<span> <strong><a
 											ui-sref="empDetails({empId:empDetails.minDetails.employee_id})">
 												{{empDetails.minDetails.employee_name}}</a></strong>
@@ -110,21 +97,48 @@
 												{{empDetails.minDetails.project}}</a></strong>
 								</span> <span class="main-border"></span>
 								</li>
-
 							</ul>
 						</li>
-
+					</ul>
+				</figure>
+			</div>
+		</div>
+		<div class="row " ng-if="empOrgChart.noReporties">
+			<div class="content1">
+				<figure class="org-chart cf">
+					<ul class="departments ">
+						<li class="department ">
+							<ul class="sections manager">
+								<li class="section" style="border: 0px"><span> <strong>
+											<a class="link-white"
+											ui-sref="empDetails({empId:empOrgChart.noReporties.employee_id})">
+												{{empOrgChart.noReporties.employee_name}}</a>
+									</strong>
+										<div class="clear"></div> <strong><a
+											class="link-white"
+											ui-sref="designation({empId:empOrgChart.noReporties.employee_id,
+                                 designation:empOrgChart.noReporties.designation_name,
+                                 name:empOrgChart.noReporties.employee_name,
+                                 project:empOrgChart.noReporties.project
+                                 })">
+												{{empOrgChart.noReporties.designation_name}}</a></strong>
+										<div class="clear"></div> <strong><a
+											class="link-white"
+											ui-sref="project({empId:empOrgChart.noReporties.employee_id,
+         								project:empOrgChart.noReporties.project,
+         								name:empOrgChart.noReporties.employee_name})">
+												{{empOrgChart.noReporties.project}}</a></strong>
+										<div class="clear"></div></span></li>
+							</ul>
+						</li>
+						<div class="clear"></div>
 					</ul>
 				</figure>
 			</div>
 		</div>
 		<div class="row " ng-if="empOrgChart.length==2">
-
-
 			<div class="content1">
 				<figure class="org-chart cf">
-
-
 					<ul class="departments ">
 						<li class="department ">
 							<ul class="sections manager">
@@ -133,8 +147,6 @@
 											ui-sref="empDetails({empId:empOrgChart[0].minDetails.employee_id})">
 												{{empOrgChart[0].minDetails.employee_name}}</a>
 									</strong>
-
-
 										<div class="clear"></div> <strong><a
 											class="link-white"
 											ui-sref="designation({empId:empOrgChart[0].minDetails.employee_id,
@@ -151,9 +163,7 @@
 												{{empOrgChart[0].minDetails.project}}</a></strong>
 
 										<div class="clear"></div></span></li>
-
 							</ul>
-
 						</li>
 						<div class="clear"></div>
 						<li class="department sub-dep">
@@ -161,16 +171,16 @@
 								<li class="section sub-section project-name "><span>
 										<strong> <a class="link-white"
 											ui-sref="empDetails({empId:empOrgChart[0].listOfProjectEmp[0].minDetails.employee_id})">
-												{{empOrgChart[0].listOfProjectEmp[0].minDetails.employee_name}}</a> [{{empOrgChart[0].listOfProjectEmp[0].listOfProjectEmp.length}}]</strong>
-										
+												{{empOrgChart[0].listOfProjectEmp[0].minDetails.employee_name}}</a>
+											[{{empOrgChart[0].listOfProjectEmp[0].listOfProjectEmp.length}}]
+									</strong>
 								</span></li>
 								<div
 									ng-repeat=" obj in empOrgChart[0].listOfProjectEmp[0].listOfProjectEmp">
-																	<li class="section sub-section frame-section"><span>
+									<li class="section sub-section frame-section"><span>
 											<strong><a class="link-white"
 												ui-sref="empDetails({empId:obj.minDetails.employee_id})">
 													{{obj.minDetails.employee_name}}</a></strong>
-
 											<div class="clear"></div> <strong><a
 												ui-sref="designation({empId:obj.minDetails.employee_id,
                                  designation:obj.minDetails.designation_name,
@@ -182,26 +192,24 @@
          								project:obj.minDetails.project,
          								name:obj.minDetails.employee_name})">
 													{{obj.minDetails.project}}</a></strong>
-
 									</span> <span class="main-border"></span></li>
 								</div>
-
 							</ul>
 						</li>
 						<!--   <li class="department sub-dep1 " ng-repeat="projectDetails in empOrgChart[1]"  ng-hide="$first"> -->
 						<li
-							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12},{'clear-margin-left':$index%6==0}] "
+							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index%6==0},{'clear-margin-left':$index%6==0}] "
 							ng-repeat="projectDetails in empOrgChart[0].listOfProjectEmp"
 							ng-hide="$first">
 							<ul class="sections">
-
 								<li
-									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12}]">
+									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index%6==0}]">
 									<span>
 										<div>
 											<strong><a
 												ui-sref="empDetails({empId:projectDetails.minDetails.employee_id})">
-													{{projectDetails.minDetails.employee_name}}</a> [{{projectDetails.listOfProjectEmp.length}}]</strong>
+													{{projectDetails.minDetails.employee_name}}</a>
+												[{{projectDetails.listOfProjectEmp.length}}]</strong>
 								</span>
 								</li>
 								<li class="section sub-section1 frame-section "
@@ -223,27 +231,21 @@
 												{{empDetails.minDetails.project}}</a></strong>
 								</span> <span class="main-border"></span>
 								</li>
-
 							</ul>
 						</li>
-
 					</ul>
 				</figure>
 			</div>
 			<div class="content1">
 				<figure class="org-chart cf">
-
-
 					<ul class="departments ">
 						<li class="department ">
 							<ul class="sections manager">
 								<li class="section" style="border: 0px"><span> <strong>
 											<a class="link-white"
 											ui-sref="empDetails({empId:empOrgChart[1].minDetails.employee_id})">
-												{{empOrgChart[1].minDetails.employee_name}}</a> 
+												{{empOrgChart[1].minDetails.employee_name}}</a>
 									</strong>
-
-
 										<div class="clear"></div> <strong><a
 											class="link-white"
 											ui-sref="designation({empId:empOrgChart[1].minDetails.employee_id,
@@ -260,9 +262,7 @@
 												{{empOrgChart[1].minDetails.project}}</a></strong>
 
 										<div class="clear"></div></span></li>
-
 							</ul>
-
 						</li>
 						<div class="clear"></div>
 						<li class="department sub-dep">
@@ -270,12 +270,13 @@
 								<li class="section sub-section project-name "><span>
 										<strong> <a class="link-white"
 											ui-sref="empDetails({empId:empOrgChart[1].listOfProjectEmp[0].minDetails.employee_id})">
-												{{empOrgChart[1].listOfProjectEmp[0].minDetails.employee_name}}</a> [{{empOrgChart[1].listOfProjectEmp[0].listOfProjectEmp.length}}]</strong>
-										
+												{{empOrgChart[1].listOfProjectEmp[0].minDetails.employee_name}}</a>
+											[{{empOrgChart[1].listOfProjectEmp[0].listOfProjectEmp.length}}]
+									</strong>
 								</span></li>
 								<div
 									ng-repeat=" obj in empOrgChart[1].listOfProjectEmp[0].listOfProjectEmp">
-																	<li class="section sub-section frame-section"><span>
+									<li class="section sub-section frame-section"><span>
 											<strong><a class="link-white"
 												ui-sref="empDetails({empId:obj.minDetails.employee_id})">
 													{{obj.minDetails.employee_name}}</a></strong>
@@ -291,26 +292,24 @@
          								project:obj.minDetails.project,
          								name:obj.minDetails.employee_name})">
 													{{obj.minDetails.project}}</a></strong>
-
 									</span> <span class="main-border"></span></li>
 								</div>
-
 							</ul>
 						</li>
 						<!--   <li class="department sub-dep1 " ng-repeat="projectDetails in empOrgChart[1]"  ng-hide="$first"> -->
 						<li
-							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12},{'clear-margin-left':$index%6==0}] "
+							ng-class="['department', 'sub-dep1','project-color{{$index%5}}',{'clear-sub':$index%6==0},{'clear-margin-left':$index%6==0}] "
 							ng-repeat="projectDetails in empOrgChart[1].listOfProjectEmp"
 							ng-hide="$first">
 							<ul class="sections">
-
 								<li
-									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index==6||$index==12}]">
+									ng-class="['section', 'sub-section1' ,'project-name','project-color{{$index%5}}',{'clear-sub':$index%6==0}]">
 									<span>
 										<div>
 											<strong><a
 												ui-sref="empDetails({empId:projectDetails.minDetails.employee_id})">
-													{{projectDetails.minDetails.employee_name}}</a>  [{{projectDetails.listOfProjectEmp.length}}]</strong>
+													{{projectDetails.minDetails.employee_name}}</a>
+												[{{projectDetails.listOfProjectEmp.length}}]</strong>
 								</span>
 								</li>
 								<li class="section sub-section1 frame-section "
@@ -332,10 +331,8 @@
 												{{empDetails.minDetails.project}}</a></strong>
 								</span> <span class="main-border"></span>
 								</li>
-
 							</ul>
 						</li>
-
 					</ul>
 				</figure>
 			</div>

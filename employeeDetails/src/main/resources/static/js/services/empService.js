@@ -1,7 +1,7 @@
 app.service('empService', [ '$http', '$log', function($http, $log) {
 	this.findEmployeeByName = function(empName, url, cb) {
 		$http({
-			url :  url + empName,
+			url : url + empName,
 			method : 'GET'
 		}).then(function(resp) {
 			// $log.log(resp.data);
@@ -11,12 +11,11 @@ app.service('empService', [ '$http', '$log', function($http, $log) {
 		});
 	};
 
-	
-}]);
+} ]);
 app.service('orgChart', [ '$http', '$log', function($http, $log) {
 	this.getListOfEmp = function(url, cb) {
 		$http({
-			url :  url,
+			url : url,
 			method : 'GET'
 		}).then(function(resp) {
 			// $log.log(resp.data);

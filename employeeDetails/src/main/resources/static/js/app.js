@@ -19,7 +19,7 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 				url : '/getDesignation/{empId}/{designation}/{name}/{project}',
 				templateUrl : '/js/views/managerOrgChart.html',
 				controller : 'empDesignation'
-						
+
 			}).state('project', {
 				url : '/getProject/{empId}/{project}/{name}/',
 				templateUrl : '/js/views/projectOrgChart.html',
@@ -30,6 +30,7 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 				templateUrl : '/js/views/reportOrgChart.html',
 				controller : 'empReport'
 
+			}).state('reload', {
+				url : '/'
 			})
-
 		} ]);

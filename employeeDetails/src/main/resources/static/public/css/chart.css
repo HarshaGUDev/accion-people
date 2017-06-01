@@ -314,7 +314,6 @@ li.sub-dep {
 
 li.sub-dep1 {
 	width: auto !important;
-	
 	min-width: 15%;
 }
 
@@ -461,7 +460,7 @@ li.frame-section5 span {
 }
 
 li.sub-dep span.main-border {
-	border-left: 5px solid 	#000000 !important;
+	border-left: 5px solid #000000 !important;
 	height: 4px !important;
 	z-index: -1 !important;
 	width: 1px !important;
@@ -476,7 +475,7 @@ li.sub-dep span.main-border {
 }
 
 li.sub-dep1 span.main-border {
-	border-left: 5px solid 	#000000 !important;
+	border-left: 5px solid #000000 !important;
 	height: 4px !important;
 	z-index: -1 !important;
 	width: 1px !important;
@@ -514,23 +513,35 @@ li.sub-dep1 span.main-border {
 .clear-margin-left {
 	margin-left: 50px !important;
 }
+
 .circle {
-    border: 0.1em solid grey;
-    border-radius: 100%;
-    height: 2em;
-    width: 2em;
-    text-align: center;
-    
+	border: 0.1em solid grey;
+	border-radius: 100%;
+	height: 2em;
+	width: 2em;
+	text-align: center;
 }
 
 .circle p {
 	margin-top: 0.10em;
-    font-size: 1.5em;
-    font-weight: bold;
-    font-family: sans-serif;
-    color: grey;
+	font-size: 1.5em;
+	font-weight: bold;
+	font-family: sans-serif;
+	color: grey;
 }
-.form-control::-webkit-input-placeholder { color: black; }
-.form-control:-moz-placeholder { color: white; }
-.form-control::-moz-placeholder { color: white; }
-.form-control:-ms-input-placeholder { color: white; }
+
+.form-control::-webkit-input-placeholder {
+	color: black;
+}
+
+.form-control:-moz-placeholder {
+	color: white;
+}
+
+.form-control::-moz-placeholder {
+	color: white;
+}
+
+.form-control:-ms-input-placeholder {
+	color: white;
+}

@@ -68,16 +68,16 @@ public class EmployeeDetails {
 	private double aadhar_no;
 	private double uan_number;
 	private String reporting_to_by_id;
-	
-	 @Lob
-		private  byte[]  image;
-	public byte[] getImage() {
-	return image;
-}
+	@Lob
+	private byte[] image;
 
-public void setImage(byte[] image) {
-	this.image = image;
-}
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public String getReporting_to_by_id() {
 		return reporting_to_by_id;

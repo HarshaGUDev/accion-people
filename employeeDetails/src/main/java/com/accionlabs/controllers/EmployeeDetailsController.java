@@ -24,19 +24,18 @@ import com.accionlabs.services.EmpProjectWiseComarator;
 import com.accionlabs.services.EmployeeService;
 
 import org.apache.log4j.Logger;
+
 @Controller
 public class EmployeeDetailsController {
-	
 	final static Logger logger = Logger.getLogger(EmployeeDetailsController.class);
 	@Autowired
 	EmployeeRepository employeeRepository;
 	@Autowired
 	EmployeeBasicDetails employeeBasicDetails;
-
 	EmployeeDetails employeeDetails;
 	@Autowired
 	EmployeeService employeeService;
-
+	
 	@RequestMapping("/people")
 	public String welcome() {
 		return "index";
@@ -45,9 +44,7 @@ public class EmployeeDetailsController {
 	@ResponseBody
 	@RequestMapping("/accionlabs/search/{search}")
 	public List search(@PathVariable("search") String search) {
-		System.out.println("hi");
 		logger.info(" Fetching the info of name include :" + search);
-		
 		return employeeRepository.getName(search);
 	}
 
@@ -64,163 +61,98 @@ public class EmployeeDetailsController {
 	public EmployeeBasicDetails getDetails(@PathVariable("employee_id") String employee_id) {
 		logger.info(" Fetching the basic info of :" + employee_id);
 		String empId = employeeService.idFormat(employee_id);
-
 		EmployeeBasicDetails employeeBasicDetails = employeeService.empBasicDetails(empId);
 		return employeeBasicDetails;
 	}
+
 	@ResponseBody
 	@RequestMapping("/accionlabs/emp/details/{employee_id}/project")
 	public Object getProjectDetails1(@PathVariable("employee_id") String employee_id) {
-	
-logger.info(" Fetching the projectwise info of :" + employee_id);
-Set<String> noReportingMgr=new HashSet<>();
+		logger.info(" Fetching the projectwise info of :" + employee_id);
+		Set<String> noReportingMgr = new HashSet<>();
+		Set<String> NoMgrReporties = new HashSet<>();
 
-			Set listOfManagers = new HashSet();
-		List<EmployeeDetails> details=null;
+		Set listOfManagers = new HashSet();
+		List<EmployeeDetails> details = null;
 		String empId = employeeService.idFormat(employee_id);
 		List projectWiseBasicDetails = new ArrayList<>();
 		String project = employeeRepository.getProjectID(employee_id);
 		List<String> getManagerList = new ArrayList<>();
 		getManagerList = employeeRepository.getProjectManagersList(project);
+		noReportingMgr.addAll(employeeRepository.getNoManagersList(project));
+		for (String noMgr : noReportingMgr) {
+			for (String noReorties : employeeRepository.getReporties(project)) {
+				if (noMgr.equals(noReorties.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"))) {
+					NoMgrReporties.add(noMgr);
+				}
+			}
+		}
 		List<String> removeZero = new ArrayList<String>();
-		Set<String> fullHigherOrderList=new HashSet<String>();
-		Set<String> managingDirector=new HashSet<String>();
-	int count=0;
+		Set<String> fullHigherOrderList = new HashSet<String>();
+		Set<String> managingDirector = new HashSet<String>();
+		int count = 0;
 		for (Object listofManager : getManagerList) {
-			
 			if ((String) listofManager != null) {
-				if (((String) listofManager).startsWith("1")) {
-					empId = listofManager + ".0";
-				} else {
-					empId = (String) listofManager;
+				empId = employeeService.idFormat(listofManager.toString());
+				String mgr = employeeRepository.getProjectManagersList1(empId);
+				if (mgr == null) {
+					count++;
+					managingDirector.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
 				}
-				
-					String mgr=employeeRepository.getProjectManagersList1(empId);
-					if(mgr==null){
-						count++;
-						managingDirector.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
-					
-					}
-					if(mgr!=null){
-						listOfManagers.add(mgr);
-						
-					}
-					}
-					}
-
-if(count<2){		
-if(!listOfManagers.isEmpty()){
-List listOfEmpNotReporting=new ArrayList<>();
-		for(Object list:listOfManagers){
-			
-			removeZero=employeeRepository.getOrgListLowerEmpId(list.toString(), project);
-			for(String id:removeZero){
-			fullHigherOrderList.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
+				if (mgr != null) {
+					listOfManagers.add(mgr);
+				}
 			}
-			
-			for (Object listofManager : getManagerList) {
-				if(listofManager!=null){
-				if (((String) listofManager).startsWith("1")) {
-					empId = listofManager + ".0";
-				} else {
-					empId = (String) listofManager;
-				}
-				if(list.toString().equals(employeeRepository.getManagerByID(empId))){
-					fullHigherOrderList.add(listofManager.toString());
-				}
-			}}
 		}
-				for (String s : fullHigherOrderList) {
-			
-		}
-		
-		List<MinDetails> managerDetails=new ArrayList<>();
-		for(Object completeList:fullHigherOrderList){
-			if (((String) completeList).startsWith("1")) {
-				empId = completeList + ".0";
+		if (count < 2) {
+			if (!listOfManagers.isEmpty()) {
+				List listOfEmpNotReporting = new ArrayList<>();
+				for (Object list : listOfManagers) {
+					removeZero = employeeRepository.getOrgListLowerEmpId(list.toString(), project);
+					for (String id : removeZero) {
+						fullHigherOrderList.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
+					}
+					for (Object listofManager : getManagerList) {
+						if (listofManager != null) {
+							empId = employeeService.idFormat(listofManager.toString());
+							if (list.toString().equals(employeeRepository.getManagerByID(empId))) {
+								fullHigherOrderList.add(listofManager.toString());
+							}
+						}
+					}
+				}
 			} else {
-				empId = (String) completeList;
-			}
-			managerDetails.add(employeeRepository.getMinDetails(empId));
-			
-		}
-		
-		EmployeeProjectOrg employeeProjectOrg = new EmployeeProjectOrg();
-		for(Object list:listOfManagers){
-			if (((String) list).startsWith("1")) {
-				empId = list + ".0";
-			} else {
-				empId = (String) list;
-			}
-			
-			employeeProjectOrg.setMinDetails(employeeRepository.getMinDetails(empId));
-			
-		}
-		
-		for(MinDetails min:managerDetails){
-			EmployeeProjectOrg epo = new EmployeeProjectOrg();
-			epo.setMinDetails(min);
-			employeeProjectOrg.addProjectEmp(epo);
-			List<MinDetails> subDetails = employeeRepository
-					.getMinDetailsList(min.getEmployee_id().replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"), project);
-			for (MinDetails esd : subDetails) {
-				EmployeeProjectOrg sepo = new EmployeeProjectOrg();
-				sepo.setMinDetails(esd);
-				epo.addProjectEmp(sepo);
-			}
-			Collections.sort(employeeProjectOrg.getListOfProjectEmp(), new EmpProjectWiseComarator());
-		}
-		
-		
-		return employeeProjectOrg;
-		}
-		else{
-			listOfManagers.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
-			for(Object list:listOfManagers){
-				removeZero=employeeRepository.getOrgListLowerEmpId(list.toString(), project);
-				for(String id:removeZero){
-				fullHigherOrderList.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
-				}
-				
-				for (Object listofManager : getManagerList) {
-					if(listofManager!=null){
-					if (((String) listofManager).startsWith("1")) {
-						empId = listofManager + ".0";
-					} else {
-						empId = (String) listofManager;
+				listOfManagers.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
+				for (Object list : listOfManagers) {
+					removeZero = employeeRepository.getOrgListLowerEmpId(list.toString(), project);
+					for (String id : removeZero) {
+						fullHigherOrderList.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
 					}
-					if(list.toString().equals(employeeRepository.getManagerByID(empId))){
-						fullHigherOrderList.add(listofManager.toString());
-						
+					for (Object listofManager : getManagerList) {
+						if (listofManager != null) {
+							empId = employeeService.idFormat(listofManager.toString());
+							if (list.toString().equals(employeeRepository.getManagerByID(empId))) {
+								fullHigherOrderList.add(listofManager.toString());
+							}
+						}
 					}
-				}}
-			}
-					for (String s : fullHigherOrderList) {
-				
-			}
-			
-			List<MinDetails> managerDetails=new ArrayList<>();
-			for(Object completeList:fullHigherOrderList){
-				if (((String) completeList).startsWith("1")) {
-					empId = completeList + ".0";
-				} else {
-					empId = (String) completeList;
 				}
+			}
+			List<MinDetails> managerDetails = new ArrayList<>();
+			for (Object completeList : fullHigherOrderList) {
+				empId = employeeService.idFormat(completeList.toString());
 				managerDetails.add(employeeRepository.getMinDetails(empId));
-				
 			}
-			
 			EmployeeProjectOrg employeeProjectOrg = new EmployeeProjectOrg();
-			for(Object list:listOfManagers){
-				if (((String) list).startsWith("1")) {
-					empId = list + ".0";
-				} else {
-					empId = (String) list;
-				}
+			for (Object list : listOfManagers) {
+				empId = employeeService.idFormat(list.toString());
 				employeeProjectOrg.setMinDetails(employeeRepository.getMinDetails(empId));
 			}
-			
-			for(MinDetails min:managerDetails){
+			for (Object list : NoMgrReporties) {
+				empId = employeeService.idFormat(list.toString());
+				employeeProjectOrg.setNoReporties(employeeRepository.getMinDetails(empId));
+			}
+			for (MinDetails min : managerDetails) {
 				EmployeeProjectOrg epo = new EmployeeProjectOrg();
 				epo.setMinDetails(min);
 				employeeProjectOrg.addProjectEmp(epo);
@@ -234,84 +166,52 @@ List listOfEmpNotReporting=new ArrayList<>();
 				Collections.sort(employeeProjectOrg.getListOfProjectEmp(), new EmpProjectWiseComarator());
 			}
 			return employeeProjectOrg;
-		}}
-else{
-	List<EmployeeProjectOrg> completeDetails= new ArrayList();	
-for( String s:managingDirector){
-List<String> fullHigherOrderListOfMd=new ArrayList<>();
-List<String> listOfManagersMd=new ArrayList<>();
-	listOfManagersMd.add(s);
-		removeZero=employeeRepository.getOrgListLowerEmpId(s.toString(), project);
-		for(String id:removeZero){
-		
-			fullHigherOrderListOfMd.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
-		getManagerList = employeeRepository.getProjectManagersList(project);
-		for( String reportToMD:getManagerList){
-			if (((String) reportToMD).startsWith("1")) {
-				empId = reportToMD + ".0";
-			} else {
-				empId = (String) reportToMD;
+		} else {
+			List<EmployeeProjectOrg> completeDetails = new ArrayList();
+			for (String s : managingDirector) {
+				List<String> fullHigherOrderListOfMd = new ArrayList<>();
+				List<String> listOfManagersMd = new ArrayList<>();
+				listOfManagersMd.add(s);
+				removeZero = employeeRepository.getOrgListLowerEmpId(s.toString(), project);
+				for (String id : removeZero) {
+					fullHigherOrderListOfMd.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
+					getManagerList = employeeRepository.getProjectManagersList(project);
+					for (String reportToMD : getManagerList) {
+						empId = employeeService.idFormat(reportToMD.toString());
+						if (s.toString().equals(employeeRepository.getOrgListHigherId(empId))) {
+							fullHigherOrderListOfMd.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
+						}
+					}
+				}
+				List<MinDetails> managerDetails = new ArrayList<>();
+				for (Object completeList : fullHigherOrderListOfMd) {
+					empId = employeeService.idFormat(completeList.toString());
+					managerDetails.add(employeeRepository.getMinDetails(empId));
+				}
+				EmployeeProjectOrg employeeProjectOrg = new EmployeeProjectOrg();
+				for (Object list : listOfManagersMd) {
+					empId = employeeService.idFormat(listOfManagersMd.toString());
+					employeeProjectOrg.setMinDetails(employeeRepository.getMinDetails(empId));
+				}
+				for (MinDetails min : managerDetails) {
+					EmployeeProjectOrg epo = new EmployeeProjectOrg();
+					epo.setMinDetails(min);
+					employeeProjectOrg.addProjectEmp(epo);
+					List<MinDetails> subDetails = employeeRepository.getMinDetailsList(
+							min.getEmployee_id().replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"), project);
+					for (MinDetails esd : subDetails) {
+						EmployeeProjectOrg sepo = new EmployeeProjectOrg();
+						sepo.setMinDetails(esd);
+						epo.addProjectEmp(sepo);
+					}
+					Collections.sort(employeeProjectOrg.getListOfProjectEmp(), new EmpProjectWiseComarator());
+				}
+				completeDetails.add(employeeProjectOrg);
 			}
-			if(s.toString().equals(employeeRepository.getOrgListHigherId(empId))){
-				fullHigherOrderListOfMd.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
-			}
-			
+			return completeDetails;
 		}
-		
-		
-		}	
-		List<MinDetails> managerDetails=new ArrayList<>();
-		for(Object completeList:fullHigherOrderListOfMd){
-			if (((String) completeList).startsWith("1")) {
-				empId = completeList + ".0";
-			} else {
-				empId = (String) completeList;
-			}
-			System.out.println("empId1 "+empId);
-			managerDetails.add(employeeRepository.getMinDetails(empId));
-			
-		}
-		
-		EmployeeProjectOrg employeeProjectOrg = new EmployeeProjectOrg();
-		for(Object list:listOfManagersMd){
-			if (((String) list).startsWith("1")) {
-				empId = list + ".0";
-			} else {
-				empId = (String) list;
-			}
-			System.out.println("empId2 "+empId);
-		employeeProjectOrg.setMinDetails(employeeRepository.getMinDetails(empId));
-			System.out.println(employeeRepository.getMinDetails(empId).getEmployee_name());
-		}
-		
-		for(MinDetails min:managerDetails){
-			EmployeeProjectOrg epo = new EmployeeProjectOrg();
-			epo.setMinDetails(min);
-			System.out.println(min.getEmployee_name());
-			employeeProjectOrg.addProjectEmp(epo);
-			List<MinDetails> subDetails = employeeRepository
-					.getMinDetailsList(min.getEmployee_id().replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"), project);
-			for (MinDetails esd : subDetails) {
-				EmployeeProjectOrg sepo = new EmployeeProjectOrg();
-				sepo.setMinDetails(esd);
-				epo.addProjectEmp(sepo);
-			}
-			Collections.sort(employeeProjectOrg.getListOfProjectEmp(), new EmpProjectWiseComarator());
-			
-		}
-		System.out.println(employeeProjectOrg);
-		completeDetails.add(employeeProjectOrg);
-		
-		}
+	}
 
-		
-		return completeDetails;		
-}
-
-		}
-
-
-	
 	@ResponseBody
 	@RequestMapping("/accionlabs/emp/details/{employee_id}/manager")
 	public List getReportingToDetails(@PathVariable("employee_id") String employee_id) {
@@ -331,21 +231,13 @@ List<String> listOfManagersMd=new ArrayList<>();
 		List orgList = new ArrayList<>();
 		String higherOrderList = employeeRepository.getOrgListHigherId(employee_id);
 		empId = employeeService.idFormat(higherOrderList);
-		orgList.add(employeeService.filterEmpDetails(employeeRepository.getOrgListHigherInfo(empId)));
+		orgList.add(employeeRepository.getOrgListHigherInfo(empId));
 		if (employee_id.contains(".")) {
 			empId2 = employee_id.substring(0, employee_id.indexOf("."));
 		} else {
 			empId2 = employee_id;
 		}
 		orgList.add(employeeService.getProjectWiseDetails(empId2));
-		
 		return orgList;
 	}
-
-	@ResponseBody
-	@RequestMapping("/accionlabs/noProject")
-	public List getEmptyProjectDetails() {
-		return employeeRepository.getEmptyProjectEmp();
-	}
-	
 }
