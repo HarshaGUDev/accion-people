@@ -190,7 +190,7 @@ public class EmployeeDetailsController {
 				}
 				EmployeeProjectOrg employeeProjectOrg = new EmployeeProjectOrg();
 				for (Object list : listOfManagersMd) {
-					empId = employeeService.idFormat(listOfManagersMd.toString());
+					empId = employeeService.idFormat(list.toString());
 					employeeProjectOrg.setMinDetails(employeeRepository.getMinDetails(empId));
 				}
 				for (MinDetails min : managerDetails) {

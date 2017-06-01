@@ -90,6 +90,7 @@ app.controller('empProject', function($scope, $stateParams, $http, orgChart,
 	var url = '/accionlabs/emp/details/' + $stateParams.empId + '/project';
 	orgChart.getListOfEmp(url, function(r) {
 		$scope.empOrgChart = r;
+		console.log(r);
 	});
 
 });
