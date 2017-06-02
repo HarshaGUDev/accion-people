@@ -9,7 +9,7 @@
 							<li><span class="lvl-b"> <strong> <a
 										class="link-white"
 										ui-sref="empDetails({empId:empOrgChart[0].employee_id})">
-											{{empOrgChart[0].employee_name}}</a></strong>
+											{{empOrgChart[0].employee_name}}</a> [{{count+1}}]</strong>
 									<div class="clear"></div> <strong><a
 										class="link-white"
 										ui-sref="designation({empId:empOrgChart[0].employee_id,
@@ -28,7 +28,7 @@
 							<ul class="sections manager">
 								<li class="section" ng-show="empOrgChart[0].employee_id!=null"><span>
 										<strong> <strong><a class="link-white"
-												ui-sref="empDetails({empId:id})"> {{name}}</a></strong>
+												ui-sref="empDetails({empId:id})"> {{name }} </a> [{{count}}]</strong>
 											<div class="clear"></div> <strong><a
 												class="link-white"
 												ui-sref="designation({empId:id,
@@ -48,7 +48,7 @@
 								<li class="section" ng-show="empOrgChart[0].employee_id==null"
 									style="border-bottom: 0px"><span> <strong>
 											<strong><a class="link-white"
-												ui-sref="empDetails({empId:id})"> {{name}}</a></strong>
+												ui-sref="empDetails({empId:id})"> {{name}}</a> [{{count}}]</strong>
 											<div class="clear"></div> <strong><a
 												class="link-white"
 												ui-sref="designation({empId:id,
@@ -131,7 +131,7 @@
 											ui-sref="project({empId:empDetails.employee_id,
          								project:empDetails.project,
          								name:empDetails.employee_name})">
-												{{empDetails[3]}}</a></strong>
+												{{empDetails.project}}</a></strong>
 								</span> <span class="main-border"></span>
 								</li>
 							</ul>

@@ -105,24 +105,9 @@ public class EmployeeDetailsController {
 			}
 		}
 		if (count < 2) {
-			if (!listOfManagers.isEmpty()) {
-				List listOfEmpNotReporting = new ArrayList<>();
-				for (Object list : listOfManagers) {
-					removeZero = employeeRepository.getOrgListLowerEmpId(list.toString(), project);
-					for (String id : removeZero) {
-						fullHigherOrderList.add(id.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
-					}
-					for (Object listofManager : getManagerList) {
-						if (listofManager != null) {
-							empId = employeeService.idFormat(listofManager.toString());
-							if (list.toString().equals(employeeRepository.getManagerByID(empId))) {
-								fullHigherOrderList.add(listofManager.toString());
-							}
-						}
-					}
-				}
-			} else {
+			if (listOfManagers.isEmpty()) {
 				listOfManagers.add(empId.replaceAll("([0-9])\\.0+([^0-9]|$)", "$1$2"));
+			} 
 				for (Object list : listOfManagers) {
 					removeZero = employeeRepository.getOrgListLowerEmpId(list.toString(), project);
 					for (String id : removeZero) {
@@ -137,7 +122,7 @@ public class EmployeeDetailsController {
 						}
 					}
 				}
-			}
+			
 			List<MinDetails> managerDetails = new ArrayList<>();
 			for (Object completeList : fullHigherOrderList) {
 				empId = employeeService.idFormat(completeList.toString());

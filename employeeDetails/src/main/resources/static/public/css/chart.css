@@ -71,6 +71,7 @@
 .org-chart .lvl-b {
 	background: #93aebf;
 	color: #fff;
+	    min-width: 230px;
 }
 
 .org-chart .board {
