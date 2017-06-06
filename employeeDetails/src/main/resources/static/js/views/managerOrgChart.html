@@ -9,7 +9,8 @@
 							<li><span class="lvl-b"> <strong> <a
 										class="link-white"
 										ui-sref="empDetails({empId:empOrgChart[0].employee_id})">
-											{{empOrgChart[0].employee_name}}</a> [{{count+1}}]</strong>
+											{{empOrgChart[0].employee_name}}</a> [{{count+1}}]
+								</strong>
 									<div class="clear"></div> <strong><a
 										class="link-white"
 										ui-sref="designation({empId:empOrgChart[0].employee_id,
@@ -94,6 +95,11 @@
                                  })">
 												{{firstProject.designation_name}}</a></strong>
 										<div class="clear"></div>
+										<div class="clear"></div> <strong><a
+											ui-sref="project({empId:firstProject.employee_id,
+         								project:firstProject.project,
+         								name:firstProject.employee_name})">
+												{{firstProject.project}}</a></strong>
 								</span> <span class="main-border"></span>
 								</li>
 							</ul>
