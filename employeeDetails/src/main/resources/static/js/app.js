@@ -21,7 +21,7 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 				controller : 'empDesignation'
 
 			}).state('project', {
-				url : '/getProject/{empId}/{project}/{name}/',
+				url : '/getProject/{empId}/{project}/{name}',
 				templateUrl : '/js/views/projectOrgChart.html',
 				controller : 'empProject'
 

@@ -71,7 +71,6 @@ public class EmployeeDetailsController {
 		logger.info(" Fetching the projectwise info of :" + employee_id);
 		Set<String> noReportingMgr = new HashSet<>();
 		Set<String> NoMgrReporties = new HashSet<>();
-
 		Set listOfManagers = new HashSet();
 		List<EmployeeDetails> details = null;
 		String empId = employeeService.idFormat(employee_id);
