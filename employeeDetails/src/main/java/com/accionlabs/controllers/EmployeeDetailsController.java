@@ -36,7 +36,7 @@ public class EmployeeDetailsController {
 	@Autowired
 	EmployeeService employeeService;
 	
-	@RequestMapping("/peoplenow")
+	@RequestMapping("/people")
 	public String welcome() {
 		return "index";
 	}
