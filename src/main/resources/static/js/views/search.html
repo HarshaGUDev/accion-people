@@ -1,0 +1,108 @@
+<div class="container-fluid wrapper-content">
+	<div class="container block-container">
+		<div class="row" ng-show="!showDetails">
+			<div ng-repeat="empDetails in empList"
+				ng-class="{'clear':$index%3==0}">
+				<div class="col-xs-12 col-sm-6 col-lg-4">
+					<div class="box">
+						<div class="icon">
+							<img ng-if="empDetails.image==null" class="image"
+								src="public/images/default-person.png" alt="..."> <img
+								ng-show="empDetails.image" class="image"
+								ng-src="data:image/png;base64,{{empDetails.image}}">
+							<div class="info">
+								<h3 class="title bold">{{empDetails.employee_name}}</h3>
+								<div class="col-md-12 col-sm-12 col-xs-12 text-center">
+									<a class="btn btn-primary clear-button"
+										ui-sref="designation({empId:empDetails.employee_id,
+                                 designation:empDetails.designation_name,
+                                 name:empDetails.employee_name,
+                                 project:empDetails.project,
+                                 email:empDetails.email_Id
+                                 })">
+										{{empDetails.designation_name}}</a>
+								</div>
+								<div class="clear"></div>
+								<div class="border"></div>
+								<div class="col-md-6 col-sm-12 col-xs-12   text-left">
+									<i class="fa fa-building mobile-icon" aria-hidden="true"></i>
+									Accionlabs
+								</div>
+								<div ng-show="empDetails.location"
+									class="col-md-6 col-sm-12 col-xs-12  text-right mobile-left">
+									<span class="glyphicon glyphicon-map-marker  mobile-icon"></span>
+									{{empDetails.location}}
+								</div>
+								<div class="col-md-6 col-sm-12 col-xs-12   text-left margin-10"
+									ng-show="empDetails.project">
+									<i class="fa fa-book" aria-hidden="true"></i> <strong><a
+										ui-sref="project({empId:empDetails.employee_id,
+         								project:empDetails.project,
+         								name:empDetails.employee_name,
+         								  email:empDetails.email_Id})">
+											{{empDetails.project}}</a></strong>
+								</div>
+								<div ng-show="empDetails.reporting_to"
+									class="col-md-6 col-sm-12 col-xs-12   margin-10 mobile-left pull-right">
+									Manager : <strong><a
+										ui-sref="report({empId:empDetails.employee_id,
+         								report:empDetails.reporting_to,
+         								name:empDetails.employee_name,
+         								reportById:empDetails.reporting_to_by_id,  
+         								email:empDetails.email_Id})">
+											{{empDetails.reporting_to|FilterNumber}}</a></strong>
+								</div>
+								<div class="clear"></div>
+								<div class="border"
+									ng-if="empDetails.address1!=='0.0'&& empDetails.address1!==''"></div>
+								<div class="col-md-12 col-sm-12 col-xs-12   bold text-center"
+									ng-if="empDetails.address1!=='0.0'&& empDetails.address1!==''">
+									<i class="fa fa-globe" aria-hidden="true"></i>
+									{{empDetails.address1}}
+								</div>
+								<div class="clear"></div>
+								<div class="border"
+									ng-if="empDetails.work_mobile_number!==0 && empDetails.work_mobile_number!==''"></div>
+								<div class="col-md-12 col-sm-12 col-xs-12 text-center bold "
+									ng-if="empDetails.work_mobile_number!==0 && empDetails.work_mobile_number!==''">
+									<span class="glyphicon glyphicon-phone"></span>
+									{{empDetails.work_mobile_number}}
+								</div>
+								<div class="clear"></div>
+								<div class="border"
+									ng-if="empDetails.email_Id!=='0.0'&& empDetailsemail_Id!==''"></div>
+								<div class="col-md-12 col-sm-12 col-xs-12 text-center bold"
+									ng-if="empDetails.email_Id!=='0.0'&& empDetails.email_Id!==''">
+									<span class="glyphicon glyphicon-mail"></span>
+									{{empDetails.email_Id}}
+								</div>
+								<div class="clear"></div>
+								<div class="border"
+									ng-if="empDetails.date_of_joining!=='0.0'&& empDetails.v!==''"></div>
+								<div class="col-md-12 col-sm-12 col-xs-12 text-center bold"
+									ng-if="empDetails.date_of_joining!=='0.0'&& empDetails.date_of_joining!==''">
+									<span class="glyphicon glyphicon-calendar"></span> <Strong>Date
+										Of Joining:</Strong> {{empDetails.date_of_joining}}
+								</div>
+								<div class="clear"></div>
+								<div class="border"></div>
+								<div class="col-md-12 col-sm-12 col-xs-12 text-center bold">
+									<a
+										ng-href="http://aic.accionlabs.com/#/search/{{empDetails.email_Id}}"
+										target="_blank">AIC Profile</a>
+								</div>
+								<div class="clear"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Boxes de Acoes -->
+		</div>
+		<div ng-show="showDetails">
+			<div class="alert alert-info">
+				<strong> No result found</strong>
+			</div>
+		</div>
+	</div>
+</div>

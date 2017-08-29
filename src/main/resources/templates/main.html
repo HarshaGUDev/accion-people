@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+<meta name="author" content="" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="HandheldFriendly" content="true">
+<title>PEOPLE @ACCION</title>
+<link href="https://fonts.googleapis.com/css?family=Oxygen"
+	rel="stylesheet">
+<link href="public/css/bootstrap.min.css" rel="stylesheet"
+	type="text/css" />
+<link href="public/css/style.css" rel="stylesheet" type="text/css" />
+<link href="public/css/media.css" rel="stylesheet" type="text/css" />
+<link href="public/css/chart.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css"
+	href="public/css/font-awesome.min.css" />
+<script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+<script src="public/js/jquery.js"></script>
+<script src="public/js/bootstrap.min.js"></script>
+<script src="public/js/angular.min.js"></script>
+<script src="public/js/angular-ui-router.min.js"></script>
+
+<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <![endif]-->
+</head>
+<body ng-app="EmployeeDetails">
+	<div search-emp></div>
+	<ui-view></ui-view>
+	<script>
+		$(document).ready(function() {
+			$('.search-panel .dropdown-menu').find('a').click(function(e) {
+				e.preventDefault();
+				var param = $(this).attr("href").replace("#", "");
+				var concept = $(this).text();
+				$('.search-panel span#search_concept').text(concept);
+				$('.input-group #search_param').val(param);
+			});
+		});		
+	</script>
+	<script type="text/javascript" src="/js/app.js"></script>
+	<script type="text/javascript"
+		src="/js/controllers/uploadController.js"></script>
+	<script type="text/javascript" src="/js/services/empService.js"></script>
+	<script type="text/javascript" src="/js/directives/search.js"></script>
+</body>
+</html>
